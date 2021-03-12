@@ -24,35 +24,39 @@ my_points = []  #накопление моих очков
 bot_points = [] #накопление очков крупье (бота)
 game = 'play'
 game_bot = 'play'
-x = random.sample(koloda, 1)
-my.append(x[0])
-print('вам выпало', x[0])
+random.shuffle(koloda)
+card = koloda.pop()
+my.append(card)
+my_points.append(nominal.get(card))
+print('вам выпало', card)
 print(my, 'это ваш набор карт на данный момент')
 while game == 'play':
     choice = input('берете еще?')
     if choice == 'да':
-        x = random.sample(koloda, 1)
-        my.append(x[0])
-        my_points.append(nominal.get(x[0]))
-        print('вам выпало', x[0])
+        random.shuffle(koloda)
+        card = koloda.pop()
+        my.append(card)
+        my_points.append(nominal.get(card))
+        print('вам выпало', card)
         print(my, 'это ваш набор карт на данный момент')
         if sum(my_points) > 21:
             game = 'stop'
     elif choice == 'нет':
         game = 'stop'
 while game_bot == 'play':
-    y = random.sample(koloda, 1)
-    bot_points.append(nominal.get(y[0]))
+    random.shuffle(koloda)
+    card = koloda.pop()
+    bot_points.append(nominal.get(card))
     if sum(bot_points) > 15:
         game_bot = 'stop'
 
 #подсчёт очков
 if sum(my_points) > 21:
     print('вы проиграли')
-    print('ваши очки:', sum(my),'очки крупье:', sum(bot))
+    print('ваши очки:', sum(my_points),'очки крупье:', sum(bot_points))
 elif sum(bot_points) > 21:
     print('вы выиграли'),
-    print('ваши очки:', sum(my),'очки крупье:', sum(bot))
+    print('ваши очки:', sum(my_points),'очки крупье:', sum(bot_points))
 else:
     if sum(my_points) > sum(bot_points):
         print('вы выиграли'),
